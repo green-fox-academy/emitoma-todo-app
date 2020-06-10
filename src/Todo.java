@@ -16,24 +16,27 @@ public class Todo {
                     "\t-r   Removes an task\n" +
                     "\t-c   Completes an task");
         } else if (args[0].equals("-l")) {
-//            System.out.println(listTasks("../tasks.txt"));
-            listTasks("../tasks.txt");
+            Path tasks = Paths.get("../tasks.txt");
+            listTasks(tasks);
         }
 
     }
 
-    public static List listTasks(String fileName) {
+    public static List listTasks(Path fileName) {
         List<String> lines = new ArrayList<>();
 
 //        List<String> print = new ArrayList<>();
 
         try {
-            Path filePath = Paths.get(fileName);
+            Path filePath = Paths.get(String.valueOf(fileName));
             lines = Files.readAllLines(filePath);
-            for (int i = 0; i < lines.size(); i++) {
-                System.out.println((i+1) + " - " + lines.get(i));
-
+            if (lines.isEmpty()) {
+                System.out.println("No todos for today! :)");
             }
+            for (int i = 0; i < lines.size(); i++) {
+                System.out.println((i + 1) + " - " + lines.get(i));
+            }
+
 
         } catch (IOException e) {
             System.out.println("Looks like is doesn't work!");
@@ -41,5 +44,21 @@ public class Todo {
         }
 
         return lines;
+    }
+    public static void addNewTask(String fileName){
+        List<String> content = new ArrayList();
+
+        content.add("First line of my file");
+
+        try {
+            Path filePath = Paths.get("assets/new-file.txt");
+            Files.write(filePath, content);// Creates a new file if not exists and overwrites it's content
+            // The elements of the content lists will become the lines of the file
+
+        } catch (Exception e) {
+            System.out.println("Uh-oh, could not write the file!");
+        }
+
+
     }
 }
