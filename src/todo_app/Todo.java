@@ -1,19 +1,18 @@
-import java.io.File;
+package todo_app;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Todo {
-    private static List<String> taskList = new ArrayList<>();
+    //private static List<String> taskList = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
 
     public static void main(String[] args) throws IOException {
         Path tasks = Paths.get("../tasks.txt");
 
-        taskList = Files.readAllLines(tasks);
 
         if (args.length == 0) {
 
@@ -30,14 +29,14 @@ public class Todo {
                 System.exit(2);
             }
             addTask(tasks, args[1]);
-            System.out.println("Task added successfully!");
+            System.out.println("todo_app.Task added successfully!");
         } else if (args[0].equals("-c")){
 
         }
 
     }
 
-    public static List listTasks(Path fileName) {
+   /* public static todo_app.TaskList listTasks(Path fileName) {
 
         if (taskList.isEmpty()) {
             System.out.println("No todos for today! :)");
@@ -50,7 +49,7 @@ public class Todo {
         }
 
         return taskList;
-    }
+    }*/
 
 
     public static void addTask(Path fileName, String task) {
@@ -59,13 +58,12 @@ public class Todo {
             Path filePath = Paths.get(String.valueOf(fileName));
             Files.write(filePath, taskList);
 
-
         } catch (IOException e) {
             System.out.println("Uh-oh, could not write the file!");
 
         }
     }
-    
+
 
 }
 
